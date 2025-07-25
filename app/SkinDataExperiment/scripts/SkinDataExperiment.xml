@@ -1,0 +1,454 @@
+<application>
+    <name>SkinDataExperiment</name>
+
+    <authors>
+        <author email="qiaoqiao.ren@iit.it"> Qiaoqiao Ren </author> 
+    </authors>
+
+    <!-- ======== MODULES ======== -->
+    <module>
+        <name>SkinDataExperiment</name>
+        <parameters></parameters>
+        <node>localhost</node>
+    </module>
+    
+    <module>
+		<name>yarpdev</name>
+		<parameters> --device usbCamera --name /skinUsb1 --d /dev/video0 </parameters>
+		<node>localhost</node>
+	</module>
+
+    <!-- ======== MODULES recording icub camera======== -->
+
+	<module>
+		<name>yarpdev</name>
+		<parameters> --device usbCamera --name /icub/cam/left  --d /dev/video0 </parameters>
+		<node>localhost</node>
+	</module>
+
+
+	<module>
+		<name>yarpview</name>
+		<parameters> --name /view/usb1 </parameters>
+		<node>localhost</node>
+	</module>
+
+    <module>
+        <name>yarpview</name>
+        <parameters> --name /yarpview/icub/cam:i </parameters>
+        <node>localhost</node>
+    </module>
+
+
+
+    <module>
+		<name>yarpdatadumper</name>
+		<parameters> --name /dump/usb1 --dir skindatacollection/Data/yarpdatadumper/usb1 --type image --txTime </parameters>
+		<node>localhost</node>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+	</module>
+
+    <module>
+		<name>yarpdatadumper</name>
+		<parameters> --name /dump/icub_view --dir skindatacollection/Data/yarpdatadumper/icub_view --type image --txTime </parameters>
+		<node>localhost</node>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+	</module>
+
+    <module>
+        <name>acapelaSpeak</name>
+        <parameters>--voice sharona --emotion neu --vcegroup english_adults</parameters>
+        <node>localhost</node>
+    </module>
+
+
+
+    <module>
+        <name>keyboardInterface</name>
+        <parameters>--name /kInterface</parameters>
+        <node>localhost</node>
+    </module>
+         
+    
+    <module>
+	<name>yarpdatadumper</name>
+	<node>localhost</node>
+	<parameters>--name /dumperkeypressed --dir skindatacollection/Data/yarpdatadumper/dumperkey</parameters>
+	<tag>yarpdatadumper</tag>
+    </module>
+    
+    <module>
+        <name>skinManager</name>
+        <parameters>--from skinManAll.ini --context skinGui</parameters>
+        <node>localhost</node>
+        <tag>skinMan</tag>
+    </module>
+    
+    
+    
+    <!-- ======== FACE TRACKER MODULES ======== -->
+    --<module>
+        <name>objectRecognition</name>
+        <parameters>--task face_detection --annotator BoundingBox
+        </parameters>
+        <node>icubsrv</node>
+    </module>
+
+    <module>
+        <name>faceTracker</name>
+        <parameters>--context faceTracker --from faceTracker.ini --platform berry</parameters>
+        <node>icubsrv</node>
+    </module>
+
+    <!-- ======== FACE TRACKER VISUALIZATION ======== -->
+
+    <module>
+        <name>yarpview</name>
+        <parameters>--name /facesView</parameters>
+        <node>icubsrv</node>
+    </module>
+
+   
+   <module>
+        <name>ctpService</name>
+	    <parameters>--robot icub --part right_arm</parameters>
+        <node>icubsrv</node>                
+   </module>
+
+
+   <module>
+        <name>ctpService</name>
+	    <parameters>--robot icub --part left_arm</parameters>
+        <node>icubsrv</node>                
+   </module>
+   
+   <module>
+        <name>ctpService</name>
+	    <parameters>--robot icub --part torso</parameters>
+        <node>icubsrv</node>                
+   </module>
+
+   
+    <module>
+        <name>iCubBreather</name>
+		<parameters>--name iCubBreatherRA --robot icub --part right_arm --refSpeeds 0.5 --noiseStd 3.0 --autoStart </parameters>
+        <node>icubsrv</node>                
+    </module>
+
+    <module>
+        <name>iCubBreather</name>
+		<parameters>--name iCubBreatherLA --robot icub --part left_arm  --refSpeeds 0.5 --noiseStd 3.0 --autoStart </parameters>
+        <node>icubsrv</node>                
+    </module>
+   
+	<module>
+        <name>iCubBreather</name>
+		<parameters>--name iCubBreatherT --robot icub --part torso  --refSpeeds 0.2 --noiseStd 1.0 --autoStart </parameters>
+        <node>icubsrv</node>                
+    </module>
+        
+    <module>
+        <name>iCubBreather</name>
+		<parameters>--name iCubBreatherRL --robot icub --part right_leg  --refSpeeds 0.2 --noiseStd 1.0 --autoStart </parameters>
+        <node>icubsrv</node>                
+        </module>
+        
+    <module>
+        <name>iCubBreather</name>
+		<parameters>--name iCubBreatherLL --robot icub --part left_leg  --refSpeeds 0.2 --noiseStd 1.0 --autoStart </parameters>
+        <node>icubsrv</node>                
+    </module>
+        
+
+
+
+     <!-- Left Arm -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_left_arm_comp --dir skindatacollection/Data/yarpdatadumper/dumper_left_arm_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>
+
+    <!-- Right Arm -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_right_arm_comp --dir skindatacollection/Data/yarpdatadumper/dumper_right_arm_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>
+
+    <!-- Torso -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_torso_comp --dir skindatacollection/Data/yarpdatadumper/dumper_torso_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>
+ 
+ 
+     <!-- Left Hand -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_left_hand_comp --dir skindatacollection/Data/yarpdatadumper/dumper_left_hand_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>
+
+     <!-- Right Hand -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_right_hand_comp --dir skindatacollection/Data/yarpdatadumper/dumper_right_hand_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>
+     
+ 
+     <!-- Left forearm -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_left_forearm_comp --dir skindatacollection/Data/yarpdatadumper/dumper_left_forearm_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module> 
+ 
+     <!-- Right forearm -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_right_forearm_comp --dir skindatacollection/Data/yarpdatadumper/dumper_right_forearm_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module> 
+  
+     <!-- Right leg upper-->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_right_leg_upper_comp --dir skindatacollection/Data/yarpdatadumper/dumper_right_leg_upper_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>  
+ 
+     <!-- Left leg upper -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_left_leg_upper_comp --dir skindatacollection/Data/yarpdatadumper/dumper_left_leg_upper_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module> 
+    
+     <!-- Right leg lower-->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_right_leg_lower_comp --dir skindatacollection/Data/yarpdatadumper/dumper_right_lower_upper_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>  
+ 
+     <!-- Left leg lower -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_left_leg_lower_comp --dir skindatacollection/Data/yarpdatadumper/dumper_left_leg_lower_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module>      
+    
+
+     <!-- Left foot -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_left_foot_comp --dir skindatacollection/Data/yarpdatadumper/dumper_left_foot_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module> 
+    
+    
+     <!-- Right foot -->
+    <module>
+        <name>yarpdatadumper</name>
+        <node>localhost</node>
+        <parameters>--name /dumper_right_foot_comp --dir skindatacollection/Data/yarpdatadumper/dumper_right_foot_comp</parameters>
+        <tag>yarpdatadumper</tag>
+        <exec>yarpdatadumper</exec>
+    </module> 
+    
+            
+    
+    <!-- ======== CONNECTIONS ======== -->
+    <connection>
+        <from>/kInterface/keypressed:o</from>
+        <to>/skinDataExperiment/skinGui/read:i</to>
+        <protocol>tcp</protocol>
+    </connection>
+
+
+    <connection>
+        <from>/kInterface/keypressed:o</from>
+        <to>/dumperkeypressed</to>
+        <protocol>tcp</protocol>
+    </connection>
+    
+    <connection>
+        <from>/icub/skin/left_arm_comp</from>
+        <to>/dumper_left_arm_comp</to>
+        <protocol>tcp</protocol>
+    </connection>
+
+    <connection>
+        <from>/icub/skin/right_arm_comp</from>
+        <to>/dumper_right_arm_comp</to>
+        <protocol>tcp</protocol>
+    </connection>
+
+    <connection>
+        <from>/icub/skin/torso_comp</from>
+        <to>/dumper_torso_comp</to>
+        <protocol>tcp</protocol>
+    </connection>
+    
+    <connection>
+        <from> /skinDataExperiment/emotion:o </from>
+        <to> /acapelaSpeak </to>
+        <protocol>tcp</protocol>
+    </connection>
+
+       
+    <connection>
+        <from>/icub/skin/left_hand_comp</from>
+        <to>/dumper_left_hand_comp</to>
+        <protocol>tcp</protocol>
+    </connection>
+    
+    <connection>
+        <from>/icub/skin/right_hand_comp</from>
+        <to>/dumper_right_hand_comp</to>
+        <protocol>tcp</protocol>
+    </connection>
+    
+    <connection>
+        <from>/icub/skin/left_forearm_comp</from>
+        <to>/dumper_left_forearm_comp</to>
+        <protocol>tcp</protocol>
+    </connection>
+
+    <connection>
+        <from>/icub/skin/right_forearm_comp</from>
+        <to>/dumper_right_forearm_comp</to>
+        <protocol>tcp</protocol>
+    </connection>
+
+
+    <connection>
+        <from>/icub/skin/left_leg_upper_comp</from>
+        <to>/dumper_left_leg_upper_comp</to>
+        <protocol>tcp</protocol>
+    </connection>       
+    
+    
+    <connection>
+        <from>/icub/skin/right_leg_upper_comp</from>
+        <to>/dumper_right_leg_upper_comp</to>
+        <protocol>tcp</protocol>
+    </connection>          
+    
+
+    <connection>
+        <from>/icub/skin/left_leg_lower_comp</from>
+        <to>/dumper_left_leg_lower_comp</to>
+        <protocol>tcp</protocol>
+    </connection>       
+
+    <connection>
+        <from>/icub/skin/right_leg_lower_comp</from>
+        <to>/dumper_right_leg_lower_comp</to>
+        <protocol>tcp</protocol>
+    </connection>       
+    
+      
+    <connection>
+        <from>/icub/skin/left_foot_comp</from>
+        <to>/dumper_left_foot_comp</to>
+        <protocol>tcp</protocol>
+    </connection>      
+       
+    
+    <connection>
+        <from>/icub/skin/right_foot_comp</from>
+        <to>/dumper_right_foot_comp</to>
+        <protocol>tcp</protocol>
+    </connection>     
+    
+    <!-- ======== CONNECTIONS FOR SPEECH ======== -->
+
+    <connection>
+        <from> /skinDataExperiment/speech:o </from>
+        <to> /acapelaSpeak/speech:i </to>
+        <protocol>tcp</protocol>
+    </connection>
+
+    <connection>
+        <from> /skinDataExperiment/rpc </from>
+        <to> /acapelaSpeak </to>
+        <protocol>tcp</protocol>
+    </connection>
+    
+     <!-- ======== Client ======== -->
+        
+    <connection>
+        <from> /skinDataExperiment/client/faceTracker </from>
+        <to> /faceTracker </to>
+        <protocol>tcp</protocol>
+    </connection>
+    
+
+    <connection>
+        <from> /skinDataExperiment/client/interactionInterface </from>
+        <to> /interactionInterface </to>
+        <protocol>tcp</protocol>
+    </connection>
+        
+    <!-- ======== CONNECTIONS FOR VIDEO RECORDING ======== -->
+
+
+    <connection>
+		<from>/skinUsb1</from>
+		<to>/view/usb1</to>
+		<protocol>tcp</protocol>
+	</connection>
+
+   	<connection>
+		<from>/skinUsb1</from>
+		<to>/dump/usb1</to>
+		<protocol>tcp</protocol>
+	</connection>
+
+    <connection>
+        <from>/icub/cam/left </from>
+        <to> /yarpview/icub/cam:i </to>
+        <protocol>tcp</protocol>
+    </connection>
+
+    <connection>
+        <from>/icub/cam/left </from>
+        <to> /dump/icub_view </to>
+        <protocol>tcp</protocol>
+    </connection>
+
+
+    
+       
+
+</application>

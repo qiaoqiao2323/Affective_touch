@@ -1,0 +1,21 @@
+# Build and CMake directories
+build/
+cmake-build-debug/
+
+# PyCharm or IntelliJ IDEA project settings
+.idea/
+
+# Python bytecode and cache
+__pycache__/
+*.pyc
+
+# Data analysis scripts or results (local only)
+data_processing/
+results/
+
+# Application-specific configuration or temporary files
+app/Skindatacollection/scripts/SkinDataExperiment.xml
+modules/SkinDataExperiment/Introduction.py
+
+# raw_data: log
+*.log
