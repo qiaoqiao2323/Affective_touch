@@ -83,7 +83,14 @@ chmod +x skin_intro.sh
 - Reaction and preparation time  
 - Moreeeeeeeeeeeeeeeee
 
+## 📊 Dataset 
 
+- Touch features for all participants and all conditions
+- Annotation from videos for free condition
+- Questionnaire results
+- Video features about motion energy will update soon
+
+  
 ## ⚠️ Notes
 
 - `Tkinter` GUI is run in a separate thread to avoid blocking YARP. (For future development, it's better to change to another tool)
