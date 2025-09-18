@@ -88,7 +88,7 @@ chmod +x skin_intro.sh
 - Touch features for all participants and all conditions
 - Annotation from videos for free condition
 - Questionnaire results
-- Video features about motion energy will update soon
+- Motion energy extracted from video
 
   
 ## ⚠️ Notes
